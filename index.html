@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F*****{FAKE_FLAG}</title>
+    <style>
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .door-container {
+            position: relative;
+            width: 200px;
+            height: 400px;
+            perspective: 1000px;
+        }
+	/* subclass */
+        .door {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #5d3f2c;
+            border: 4px solid #3b2a1b;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transform-origin: left;
+            transform: rotateY(0deg);
+            transition: transform 0.6s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .door-handle {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: gold;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #e0e0e0; /*kind of ... gray?*/
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px; /* initial size, v3 */
+            opacity: 0;
+            transition: opacity 0.5s ease; /* vanish */
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="door-container">
+    <div class="door" id="door">🚩?
+        <div class="door-handle"></div>
+    </div>
+    <div class="back" id="back"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+<script>
+    const door = document.getElementById("door");
+    const back = document.getElementById("back");
+    let isopen = false;
+
+    const emojis = ["🐿️", "🐳", "🎂", "🦁", "🎉", "🥳", "🐺"];
+    const flag = "🚩";
+
+    door.addEventListener("click", () => {
+        isopen = !isopen;
+        door.style.transform = isopen ? "rotateY(-100deg)" : "rotateY(0deg)"; //"rotateX(-100deg)" : "rotateX(0deg)"
+
+        if (isopen) {
+            let randomEmoji;
+
+            if (Math.random() < 0.001) {
+                randomEmoji = flag;
+            } else {
+                randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+            }
+
+            back.textContent = randomEmoji;
+            back.style.opacity = 1;
+            back.style.pointerEvents = "auto";
+
+            if (randomEmoji === flag) {
+                back.style.cursor = "pointer";
+                back.onclick = () => {
+                    window.location.href = "/hBd_Flag.txt";
+                };
+            } else {
+                back.style.cursor = "default";
+                back.onclick = null;
+            }
+
+
+            setTimeout(() => {
+                back.style.opacity = 0;
+                back.style.pointerEvents = "none";
+            }, 1000);
+        }
+    });
+
+function lalala() {
+    const cont = document.createElement("div");
+    cont.style.position = "fixed";
+    cont.style.top = "0";
+    cont.style.left = "0";
+    cont.style.width = "100vw";
+    cont.style.height = "100vh";
+    cont.style.pointerEvents = "none";
+    document.body.appendChild(cont);
+
+    setInterval(() => {
+        const conf = document.createElement("div");
+        conf.style.position = "absolute";
+        conf.style.width = "7px";
+        conf.style.height = "7px";
+        conf.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        conf.style.borderRadius = "50%";
+        conf.style.opacity = "0.5";
+        conf.style.top = "0";
+        conf.style.left = `${Math.random() * 100}vw`;
+        conf.style.transition = "transform 2s linear, opacity 2s linear";
+        cont.appendChild(conf);
+
+        setTimeout(() => {
+            conf.style.transform = `translateY(100vh)`;
+            conf.style.opacity = "0";
+        }, 50);
+
+        setTimeout(() => conf.remove(), 2000);
+    }, 300);
+}
+
+lalala();
+lalala();
+Swal.fire({
+  title: "Happy Birthday🎉",
+  text: "老大好🫡",
+  icon: "info"
+});
+</script>
+</body>
+</html>
